@@ -2,6 +2,12 @@ angular.module('OWMApp', ['ngRoute'])
 
 	.value('owmCities', ['New York', 'Dallas', 'Chicago'])
 
+	.run(function($rootScope, $location) {
+			$rootScope.$on('$routeChangeError', function() {
+				$location.path('/error');
+			});
+	})
+
 	.config(['$routeProvider', function($routeProvider) {
 		$routeProvider.when('/', {
 			templateUrl: 'home.html',
@@ -23,8 +29,7 @@ angular.module('OWMApp', ['ngRoute'])
 		})
 		.when('/error', {
 			template : '<p>Error - Page Not Found</p>'
-		})
-		.otherwise('/error');
+		});
 	}])
 
 	.controller('HomeCtrl', function($scope) {
